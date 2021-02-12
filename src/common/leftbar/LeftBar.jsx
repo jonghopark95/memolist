@@ -2,6 +2,7 @@ import React from "react";
 import { LBAmount, LBIcon, LBItem, LBLabel, LBWrapper } from "./LeftBar.style";
 import Today from "../../assets/leftbar/today.svg";
 import { withRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LeftBarItem = withRouter(
   ({ to, icon, label, amount, location: { pathname } }) => {
@@ -16,11 +17,17 @@ const LeftBarItem = withRouter(
 );
 
 const LeftBar = () => {
+  const todayAmount = useSelector((state) => state.memo.length);
+
   return (
     <LBWrapper>
-      <LeftBarItem to="/today" icon={Today} label="Today" amount="8" />
-      <LeftBarItem to="/month" icon={Today} label="Month" amount="8" />
-      {/* <LeftBarItem to="/next" icon={Today} label="Next 7 Days" amount="8" /> */}
+      <LeftBarItem
+        to="/today"
+        icon={Today}
+        label="Today"
+        amount={todayAmount}
+      />
+      {/* <LeftBarItem to="/month" icon={Today} label="Month" amount="8" /> */}
     </LBWrapper>
   );
 };

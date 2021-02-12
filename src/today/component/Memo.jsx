@@ -9,24 +9,49 @@ import {
 import { ReactComponent as MemoDeleteSvg } from "../../assets/delete_memo.svg";
 import useClicked from "../../common/hooks/useClicked";
 import useMemoMove from "../../common/hooks/useMemoMove";
+import { useDispatch, useSelector } from "react-redux";
+import { editMemoContent, editMemoPos, removeMemo } from "../state";
 
-const Memo = ({ title, desc }) => {
-  const [value, setValue] = useState({ title, desc });
+const Memo = ({ id }) => {
+  const { title, desc, color } = useSelector((state) => {
+    const index = state.memo.findIndex((memo) => memo.id === id);
+    return state.memo[index];
+  });
+  const dispatch = useDispatch();
   const wrapperRef = useRef(null);
-  const { pos, handleMouseDown } = useMemoMove({ x: 50, y: 50 });
   const clicked = useClicked(wrapperRef);
-
-  const handleChange = (e) => {
-    setValue((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
-  };
+  const { pos, handleMouseDown } = useMemoMove({ x: 50, y: 50 });
 
   return (
-    <MemoWrapper ref={wrapperRef} left={`${pos.x}px`} top={`${pos.y}px`}>
-      <MemoTitle name="title" value={value.title} onChange={handleChange} />
-      <MemoDescription name="desc" value={value.desc} onChange={handleChange} />
-      {clicked && <MemoHeader onMouseDown={handleMouseDown} />}
+    <MemoWrapper
+      color={color}
+      ref={wrapperRef}
+      left={`${pos.x}px`}
+      top={`${pos.y}px`}
+    >
+      <MemoTitle
+        value={title}
+        onChange={(e) =>
+          dispatch(editMemoContent({ id, title: e.target.value, desc }))
+        }
+      />
+      <MemoDescription
+        value={desc}
+        onChange={(e) =>
+          dispatch(editMemoContent({ id, title, desc: e.target.value }))
+        }
+      />
       {clicked && (
-        <MemoDeleteBtn>
+        <MemoHeader
+          color={color}
+          onMouseDown={handleMouseDown}
+          onMouseUp={() =>
+            dispatch(editMemoPos({ id, posX: pos.x, posY: pos.y }))
+          }
+        />
+      )}
+      {clicked && (
+        <MemoDeleteBtn onClick={() => dispatch(removeMemo(id))}>
           <MemoDeleteSvg />
         </MemoDeleteBtn>
       )}

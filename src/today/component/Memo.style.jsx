@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { memoColorPalette } from "../../common/styles/commonStyle";
 
 const MemoDefaultWidth = "300px";
-const MemoDefaultHeight = "400px";
+const MemoDefaultHeight = "200px";
 const MemoTitleHeight = "45px";
 const MemoDeleteButtonH = "40px";
 
@@ -13,7 +12,11 @@ export const MemoWrapper = styled.div`
   top: ${(props) => props.top};
   left: ${(props) => props.left};
   padding: 15px;
-  background-color: ${memoColorPalette[2].bg};
+  background-color: ${(props) => props.color.bg};
+  border: 1px solid #605e5e;
+  -webkit-box-shadow: 0px 0px 48px -26px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 48px -26px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 48px -26px rgba(0, 0, 0, 0.4);
 `;
 
 export const MemoHeader = styled.div`
@@ -22,7 +25,7 @@ export const MemoHeader = styled.div`
   left: 0;
   width: 100%;
   height: 8px;
-  background-color: ${memoColorPalette[2].hd};
+  background-color: ${(props) => props.color.hd};
   cursor: move;
 `;
 

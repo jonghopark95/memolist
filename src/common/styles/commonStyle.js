@@ -1,8 +1,11 @@
 export const leftBarBgColor = "#FAFAFA";
 
 export const memoColorPalette = [
-  "#81ecec",
-  "#74b9ff",
+  { bg: "#74b9ff", hd: "#0984e3" },
   { bg: "#fab1a0", hd: "#ee5253" },
-  "#ffeaa7",
+  { bg: "#a29bfe", hd: "#6c5ce7" },
+  { bg: "#81ecec", hd: "#00cec9" },
+  { bg: "#ffeaa7", hd: "#fdcb6e" },
+  { bg: "#55efc4", hd: "#00b894" },
+  { bg: "#cf6a87", hd: "#c44569" },
 ];
