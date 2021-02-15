@@ -1,23 +1,35 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import styled from "styled-components";
-import Header from "./common/header/Header";
-import { headerHeight } from "./common/header/Header.style";
-import LeftBar from "./common/leftbar/LeftBar";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Header from "./header/Header";
+import LeftBar from "./leftbar/LeftBar";
+import LoginPage from "./login_page/container/loginContainer";
 import Today from "./today/container/TodayContainer";
-// import MemoMain from "./memo/container/MemoMain";
+
+const HomeRouter = ({ match }) => {
+  return (
+    <>
+      <Header />
+      <div style={{ display: "flex" }}>
+        <LeftBar />
+        <Route path={`${match.path}/today`} component={Today} />
+      </div>
+      {/* <Redirect path="*" to="/today" /> */}
+    </>
+  );
+};
 
 const AppRouter = () => {
   return (
     <Router>
-      <Header />
-      <div style={{ display: "flex" }}>
-        <LeftBar />
-        <Switch>
-          <Route path="/today" component={Today} />
-          <Route path="/month" component={Today} />
-          {/* <Route path="/" component={MemoMain} /> */}
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/home" component={HomeRouter} />
+        <Route path="/login" component={LoginPage} />
+        <Redirect path="*" to="/home" />
+      </Switch>
     </Router>
   );
 };

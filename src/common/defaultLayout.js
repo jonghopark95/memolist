@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { headerHeight } from "./header/Header.style";
+import { headerHeight } from "../header/Header.style";
 
 const DefaultLayoutWrapper = styled.main`
   position: relative;
@@ -20,10 +20,9 @@ const Main = styled.div`
   height: 100%;
 `;
 
-const DefaultLayout = ({ children, onClick }) => {
+const DefaultLayout = ({ children }) => {
   return (
-    <DefaultLayoutWrapper onClick={onClick}>
-      {/* <Title>{title}</Title> */}
+    <DefaultLayoutWrapper>
       <Main>{children}</Main>
     </DefaultLayoutWrapper>
   );

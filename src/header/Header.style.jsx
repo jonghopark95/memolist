@@ -16,8 +16,8 @@ export const Logo = styled.div`
   color: #ecf0f1;
   width: 20%;
   padding-left: 40px;
-  font-size: 40px;
-  font-family: "Nanum Pen Script", cursive;
+  font-size: 30px;
+  font-family: "Benne", serif;
 `;
 
 export const SLink = styled(Link)`
@@ -27,13 +27,4 @@ export const SLink = styled(Link)`
   color: #fff;
   text-align: center;
   text-decoration: none;
-`;
-
-export const UserInteractionSection = styled.div`
-  width: 20%;
-  padding-right: 80px;
-  line-height: ${headerHeight};
-  text-align: right;
-  position: absolute;
-  right: 0;
 `;

@@ -9,3 +9,9 @@ export const memoColorPalette = [
   { bg: "#55efc4", hd: "#00b894" },
   { bg: "#cf6a87", hd: "#c44569" },
 ];
+
+export const fontColor = "#ecf0f1";
+export const leftBarColor = "#34495e";
+export const loginPageColor = "#4C56C2";
+export const loginPageInputColor = "#3B45A9";
+export const loginPageButtonColor = "#FA6080";

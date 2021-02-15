@@ -14,12 +14,12 @@ import { editMemoContent, editMemoPos, removeMemo } from "../state";
 
 const Memo = ({ id }) => {
   const { title, desc, color } = useSelector((state) => {
-    const index = state.memo.findIndex((memo) => memo.id === id);
-    return state.memo[index];
+    const index = state.memos.memo.findIndex((memo) => memo.id === id);
+    return state.memos.memo[index];
   });
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
-  const clicked = useClicked(wrapperRef);
+  const { clicked } = useClicked(wrapperRef);
   const { pos, handleMouseDown } = useMemoMove({ x: 50, y: 50 });
 
   return (

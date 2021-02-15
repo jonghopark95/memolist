@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const MemoDefaultWidth = "300px";
-const MemoDefaultHeight = "200px";
+const MemoDefaultWidth = "500px";
+const MemoDefaultHeight = "400px";
 const MemoTitleHeight = "45px";
 const MemoDeleteButtonH = "40px";
 
