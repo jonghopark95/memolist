@@ -28,11 +28,13 @@ const Today = () => {
     }
   }, [dispatch, isLoggedIn, uid]);
 
+  console.log(memos);
   return (
     <DefaultLayout>
       <AddMemo />
-      {!loaded && "로딩 애니메이션"}
-      {loaded && memos && memos.map(({ id }) => <Memo key={id} id={id} />)}
+      {isLoggedIn === "pending" && "로딩 애니메이션"}
+      {!isLoggedIn && memos.map(({ id }) => <Memo key={id} id={id} />)}
+      {isLoggedIn && loaded && memos.map(({ id }) => <Memo key={id} id={id} />)}
     </DefaultLayout>
   );
 };

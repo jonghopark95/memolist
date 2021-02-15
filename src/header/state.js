@@ -11,7 +11,7 @@ export const changeLogAction = (uid, loggedIn) => ({
 export const setInit = (init) => ({ type: INIT, init });
 
 const INITIAL_STATE = {
-  isLoggedIn: false,
+  isLoggedIn: "pending",
   uid: null,
   init: false,
 };
