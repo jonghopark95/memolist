@@ -8,6 +8,7 @@ import LoginPage from "./loginScreen";
 import { authService } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLogAction } from "../state";
+import { useHistory } from "react-router-dom";
 
 const UserSection = () => {
   const LoginScreenRef = useRef();
@@ -15,6 +16,7 @@ const UserSection = () => {
 
   const { isLoggedIn } = useSelector((state) => state.login);
   const dispatch = useDispatch();
+  let history = useHistory();
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -27,6 +29,7 @@ const UserSection = () => {
   const handleOnClick = () => {
     if (isLoggedIn) {
       authService.signOut();
+      history.go(0);
     } else {
       setClicked(true);
     }
