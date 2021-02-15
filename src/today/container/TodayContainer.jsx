@@ -28,7 +28,7 @@ const Today = () => {
     }
   }, [dispatch, isLoggedIn, uid]);
 
-  console.log(memos);
+  console.log(memos, uid);
   return (
     <DefaultLayout>
       <AddMemo />

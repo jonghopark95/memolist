@@ -1,20 +1,21 @@
-import { useSelector } from "react-redux";
 import createReducer from "../common/redux/createReducer";
 import { memoColorPalette } from "../common/styles/commonStyle";
 import firestore from "../firebase";
 
 const GET = "memo/GET";
-const SAVE = "memo/SAVE";
 const SET = "memo/SET";
 const ADD = "memo/ADD";
 const REMOVE = "memo/REMOVE";
 const EDIT_CONTENT = "memo/EDIT_CONTENT";
 const EDIT_POS = "memo/EDIT_POS";
+const EDIT_SIZE = "memo/EDIT_SIZE";
 
 const INITIAL_STATE = {
   memos: [
     {
       id: 0,
+      width: 400,
+      height: 300,
       posX: 50,
       posY: 50,
       title: "환영합니다!!",
@@ -24,6 +25,8 @@ const INITIAL_STATE = {
     },
     {
       id: 1,
+      width: 400,
+      height: 300,
       posX: 200,
       posY: 200,
       title: "메모를 클릭해 보세요",
@@ -44,7 +47,7 @@ export const addMemo = ({ title, desc, uid }) => ({
   desc,
   uid,
 });
-export const removeMemo = (memo_id, uid) => ({ type: REMOVE, memo_id, uid });
+export const removeMemo = (id, uid) => ({ type: REMOVE, id, uid });
 export const editMemoContent = ({ id, title, desc, uid }) => ({
   type: EDIT_CONTENT,
   id,
@@ -52,42 +55,71 @@ export const editMemoContent = ({ id, title, desc, uid }) => ({
   desc,
   uid,
 });
-export const editMemoPos = ({ id, posX, posY, uid }) => ({
+export const editMemoPos = ({ id, uid, posX, posY }) => ({
   type: EDIT_POS,
   id,
+  uid,
   posX,
   posY,
+});
+export const editMemoSize = ({ id, width, height, uid }) => ({
+  type: EDIT_SIZE,
+  id,
+  width,
+  height,
   uid,
 });
 
 export const setFbDataToState = (uid) => {
   return (dispatch) => {
-    return firestore
-      .collection(`memos-${uid}`)
-      .get()
-      .then((snapshot) => {
-        let fbMemos = [];
+    if (uid !== null) {
+      return firestore
+        .collection(`memos-${uid}`)
+        .get()
+        .then((snapshot) => {
+          let fbMemos = [];
 
-        snapshot.forEach((doc) => {
-          // 저장된 메모가 있을 경우
-          fbMemos.push(doc.data());
-        });
-
-        if (fbMemos.length === 0) {
-          // 저장된 메모 없을 경우
-          INITIAL_STATE.memos.forEach((memo) => {
-            let doc = firestore.collection(`memos-${uid}`).doc();
-            let updateMemo = { ...memo };
-            updateMemo.id = doc.id;
-            fbMemos.push(updateMemo);
-            doc.set(updateMemo);
+          snapshot.forEach((doc) => {
+            // 저장된 메모가 있을 경우
+            fbMemos.push(doc.data());
           });
-        }
 
-        dispatch(setMemo(fbMemos));
-      })
-      .catch((err) => console.log(err));
+          if (fbMemos.length === 0) {
+            // 저장된 메모 없을 경우
+            INITIAL_STATE.memos.forEach((memo) => {
+              let doc = firestore.collection(`memos-${uid}`).doc();
+              let updateMemo = { ...memo };
+              updateMemo.id = doc.id;
+              fbMemos.push(updateMemo);
+              doc.set(updateMemo);
+            });
+          }
+          dispatch(setMemo(fbMemos));
+        })
+        .catch((err) => console.log(err));
+    }
   };
+};
+
+const setStateDataToFb = async (uid, id, type, data) => {
+  if (uid !== undefined) {
+    switch (type) {
+      case "add":
+        let doc = firestore.collection(`memos-${uid}`).doc();
+        let updateMemo = { ...data };
+        updateMemo.id = doc.id;
+        await doc.set(updateMemo);
+        break;
+      case "remove":
+        await firestore.collection(`memos-${uid}`).doc(id).delete();
+        break;
+      case "edit":
+        firestore.collection(`memos-${uid}`).doc(id).update(data);
+        break;
+      default:
+        throw Error;
+    }
+  }
 };
 
 const reducer = createReducer(INITIAL_STATE, {
@@ -108,17 +140,13 @@ const reducer = createReducer(INITIAL_STATE, {
       color: memoColorPalette[state.currentIndex % memoColorPalette.length],
     };
     state.memos.push(memo_dict);
-    // firestore에 추가
-    if (action.uid !== undefined) {
-      let doc = firestore.collection(`memos-${action.uid}`).doc();
-      let updateMemo = { ...memo_dict };
-      updateMemo.id = doc.id;
-      doc.set(updateMemo);
-    }
+    const { uid, id } = action;
+    setStateDataToFb(uid, id, "add", memo_dict);
   },
   [REMOVE]: (state, action) => {
-    state.memos = state.memos.filter((memo) => memo.id !== action.memo_id);
-    firestore.collection(`memos-${action.uid}`).doc(action.memo_id).delete();
+    state.memos = state.memos.filter((memo) => memo.id !== action.id);
+    const { uid, id } = action;
+    setStateDataToFb(uid, id, "remove", null);
   },
   [EDIT_CONTENT]: (state, action) => {
     const index = state.memos.findIndex((memo) => memo.id === action.id);
@@ -126,10 +154,8 @@ const reducer = createReducer(INITIAL_STATE, {
       state.memos[index].title = action.title;
       state.memos[index].desc = action.desc;
     }
-    firestore.collection(`memos-${action.uid}`).doc(action.id).update({
-      title: action.title,
-      desc: action.desc,
-    });
+    const { uid, id, title, desc } = action;
+    setStateDataToFb(uid, id, "edit", { title, desc });
   },
   [EDIT_POS]: (state, action) => {
     const index = state.memos.findIndex((memo) => memo.id === action.id);
@@ -137,10 +163,17 @@ const reducer = createReducer(INITIAL_STATE, {
       state.memos[index].posX = action.posX;
       state.memos[index].posY = action.posY;
     }
-    firestore.collection(`memos-${action.uid}`).doc(action.id).update({
-      posX: action.posX,
-      posY: action.posY,
-    });
+    const { uid, id, posX, posY } = action;
+    setStateDataToFb(uid, id, "edit", { posX, posY });
+  },
+  [EDIT_SIZE]: (state, action) => {
+    const index = state.memos.findIndex((memo) => memo.id === action.id);
+    if (index >= 0) {
+      state.memos[index].width = action.width;
+      state.memos[index].height = action.height;
+    }
+    const { uid, id, width, height } = action;
+    setStateDataToFb(uid, id, "edit", { width, height });
   },
 });
 

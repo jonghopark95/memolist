@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   MemoDeleteBtn,
   MemoDescription,
@@ -10,13 +10,20 @@ import { ReactComponent as MemoDeleteSvg } from "../../assets/delete_memo.svg";
 import useClicked from "../../common/hooks/useClicked";
 import useMemoMove from "../../common/hooks/useMemoMove";
 import { useDispatch, useSelector } from "react-redux";
-import { editMemoContent, editMemoPos, removeMemo } from "../state";
+import {
+  editMemoContent,
+  editMemoPos,
+  editMemoSize,
+  removeMemo,
+} from "../state";
 
 const Memo = ({ id }) => {
-  const { title, desc, color, posX, posY } = useSelector((state) => {
-    const index = state.data.memos.findIndex((memo) => memo.id === id);
-    return state.data.memos[index];
-  });
+  const { width, height, title, desc, color, posX, posY } = useSelector(
+    (state) => {
+      const index = state.data.memos.findIndex((memo) => memo.id === id);
+      return state.data.memos[index];
+    }
+  );
 
   const uid = useSelector((state) => state.login.uid) || undefined;
 
@@ -25,12 +32,20 @@ const Memo = ({ id }) => {
   const { clicked } = useClicked(wrapperRef);
   const { pos, handleMouseDown } = useMemoMove({ x: posX, y: posY });
 
+  const handleSize = () => {
+    const { width, height } = wrapperRef.current.getBoundingClientRect();
+    dispatch(editMemoSize({ id, uid, width, height }));
+  };
+
   return (
     <MemoWrapper
-      color={color}
       ref={wrapperRef}
+      w={width}
+      h={height}
       left={`${pos.x}px`}
       top={`${pos.y}px`}
+      color={color}
+      onMouseUp={handleSize}
     >
       <MemoTitle
         value={title}
@@ -49,7 +64,7 @@ const Memo = ({ id }) => {
           color={color}
           onMouseDown={handleMouseDown}
           onMouseUp={() =>
-            dispatch(editMemoPos({ id, posX: pos.x, posY: pos.y, uid }))
+            dispatch(editMemoPos({ id, uid, posX: pos.x, posY: pos.y }))
           }
         />
       )}
