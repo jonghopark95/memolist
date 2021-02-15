@@ -13,14 +13,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { editMemoContent, editMemoPos, removeMemo } from "../state";
 
 const Memo = ({ id }) => {
-  const { title, desc, color } = useSelector((state) => {
-    const index = state.memos.memo.findIndex((memo) => memo.id === id);
-    return state.memos.memo[index];
+  const { title, desc, color, posX, posY } = useSelector((state) => {
+    const index = state.data.memos.findIndex((memo) => memo.id === id);
+    return state.data.memos[index];
   });
+
+  const uid = useSelector((state) => state.login.uid) || undefined;
+
   const dispatch = useDispatch();
   const wrapperRef = useRef(null);
   const { clicked } = useClicked(wrapperRef);
-  const { pos, handleMouseDown } = useMemoMove({ x: 50, y: 50 });
+  const { pos, handleMouseDown } = useMemoMove({ x: posX, y: posY });
 
   return (
     <MemoWrapper
@@ -32,13 +35,13 @@ const Memo = ({ id }) => {
       <MemoTitle
         value={title}
         onChange={(e) =>
-          dispatch(editMemoContent({ id, title: e.target.value, desc }))
+          dispatch(editMemoContent({ id, title: e.target.value, desc, uid }))
         }
       />
       <MemoDescription
         value={desc}
         onChange={(e) =>
-          dispatch(editMemoContent({ id, title, desc: e.target.value }))
+          dispatch(editMemoContent({ id, title, desc: e.target.value, uid }))
         }
       />
       {clicked && (
@@ -46,12 +49,12 @@ const Memo = ({ id }) => {
           color={color}
           onMouseDown={handleMouseDown}
           onMouseUp={() =>
-            dispatch(editMemoPos({ id, posX: pos.x, posY: pos.y }))
+            dispatch(editMemoPos({ id, posX: pos.x, posY: pos.y, uid }))
           }
         />
       )}
       {clicked && (
-        <MemoDeleteBtn onClick={() => dispatch(removeMemo(id))}>
+        <MemoDeleteBtn onClick={() => dispatch(removeMemo(id, uid))}>
           <MemoDeleteSvg />
         </MemoDeleteBtn>
       )}

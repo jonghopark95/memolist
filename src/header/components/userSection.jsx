@@ -7,28 +7,27 @@ import useClicked from "../../common/hooks/useClicked";
 import LoginPage from "./loginScreen";
 import { authService } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { changeLogAction, changeLogCallbackStatus } from "../state";
+import { changeLogAction, setInit } from "../state";
 
 const UserSection = () => {
   const LoginScreenRef = useRef();
   const { clicked, setClicked } = useClicked(LoginScreenRef);
 
-  const { after_log_callback, is_logged_in } = useSelector(
-    (state) => state.login
-  );
+  const { isLoggedIn } = useSelector((state) => state.login);
+  const { loaded } = useSelector((state) => state.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         dispatch(changeLogAction(user.uid, true));
-      } else dispatch(changeLogAction(false));
+      } else dispatch(changeLogAction(null, false));
     });
-    dispatch(changeLogCallbackStatus(true));
+    dispatch(setInit(true));
   }, [dispatch]);
 
   const handleOnClick = () => {
-    if (is_logged_in) {
+    if (isLoggedIn) {
       authService.signOut();
     } else {
       setClicked(true);
@@ -38,9 +37,11 @@ const UserSection = () => {
   return (
     <UserInteractionSection>
       <UserInteractionSpan onClick={handleOnClick}>
-        {after_log_callback && is_logged_in ? "로그아웃" : "로그인"}
+        {!loaded && ""}
+        {loaded && isLoggedIn && "로그아웃"}
+        {loaded && !isLoggedIn && "로그인"}
       </UserInteractionSpan>
-      {!is_logged_in && clicked && <LoginPage ref={LoginScreenRef} />}
+      {!isLoggedIn && clicked && <LoginPage ref={LoginScreenRef} />}
     </UserInteractionSection>
   );
 };

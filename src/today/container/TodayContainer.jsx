@@ -4,31 +4,35 @@ import { ReactComponent as AddMemoSvg } from "../../assets/add_memo.svg";
 import Memo from "../component/Memo";
 import { AddMemoBtn } from "./TodayContainer.style";
 import { useDispatch, useSelector } from "react-redux";
-import { addMemo, getMemo } from "../state";
+import { addMemo, setFbDataToState } from "../state";
 
 const AddMemo = () => {
   const dispatch = useDispatch();
-  const uid = useSelector((state) => state.login.uid);
+  const uid = useSelector((state) => state.login.uid) || undefined;
 
   return (
-    <AddMemoBtn
-      onClick={() => {
-        dispatch(addMemo({ uid, title: "", desc: "" }));
-      }}
-    >
+    <AddMemoBtn onClick={() => dispatch(addMemo({ title: "", desc: "", uid }))}>
       <AddMemoSvg />
     </AddMemoBtn>
   );
 };
 
 const Today = () => {
-  // console.log(memos);
-  const uid = useSelector((state) => state.login.uid);
+  const dispatch = useDispatch();
+  const { uid, isLoggedIn } = useSelector((state) => state.login);
+  const { memos, loaded } = useSelector((state) => state.data);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(setFbDataToState(uid));
+    }
+  }, [dispatch, isLoggedIn, uid]);
 
   return (
     <DefaultLayout>
       <AddMemo />
-      {/* {memos && memos.map(({ id }) => <Memo key={id} id={id} />)} */}
+      {!loaded && "로딩 애니메이션"}
+      {loaded && memos && memos.map(({ id }) => <Memo key={id} id={id} />)}
     </DefaultLayout>
   );
 };

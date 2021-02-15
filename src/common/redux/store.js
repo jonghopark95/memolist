@@ -1,27 +1,11 @@
-import { combineReducers, createStore, applyMiddleware, compose } from "redux";
-import {
-  reduxFirestore,
-  getFiresstore,
-  firestoreReducer,
-} from "redux-firestore";
-// import thunk from "redux-thunk";
-import firebase from "../../firebase";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import todayReducer from "../../today/state";
 import loginReducer from "../../header/state";
+import thunk from "redux-thunk";
 
-const createStoreWithFirebase = compose(reduxFirestore(firebase))(createStore);
 const reducer = combineReducers({
-  // memos: todayReducer,
-  firestore: firestoreReducer,
+  data: todayReducer,
   login: loginReducer,
 });
 
-const initialState = {};
-export default createStoreWithFirebase(reducer, initialState);
-
-// export default createStore(
-//   reducer,
-//   compose(
-//     applyMiddleware(thunk.withExtraArgument({ getFiresstore })),
-//     reduxFirestore(firebase)
-//   )
-// );
+export default createStore(reducer, applyMiddleware(thunk));
