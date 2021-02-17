@@ -17,7 +17,7 @@ import { ReactComponent as ColorChangeSvg } from "../assets/palette.svg";
 import useClicked from "../common/hooks/useClicked";
 import useMemoMove from "../common/hooks/useMemoMove";
 import { useDispatch, useSelector } from "react-redux";
-import { editMemo, removeMemo } from "../todo/state";
+import { doneMemo, editMemo, removeMemo } from "../todo/state";
 import { memoColorPalette } from "./styles/commonStyle";
 
 const Memo = ({ id }) => {
@@ -26,12 +26,21 @@ const Memo = ({ id }) => {
   const colorPaletteRef = useRef(null);
   const { clicked } = useClicked(wrapperRef);
   const { clicked: paletteClicked } = useClicked(colorPaletteRef);
-  const { width, height, title, desc, bg, hd, posX, posY } = useSelector(
-    (state) => {
-      const index = state.data.memos.findIndex((memo) => memo.id === id);
-      return state.data.memos[index];
-    }
-  );
+  const {
+    width,
+    height,
+    title,
+    desc,
+    bg,
+    hd,
+    posX,
+    posY,
+    status,
+  } = useSelector((state) => {
+    const index = state.data.memos.findIndex((memo) => memo.id === id);
+    return state.data.memos[index];
+  });
+  const { displayName, photoURL } = useSelector((state) => state.login);
   const { pos, handleMouseDown } = useMemoMove({ x: posX, y: posY });
   const [colorPalette, setColorPalette] = useState(false);
 
@@ -87,28 +96,37 @@ const Memo = ({ id }) => {
       {clicked && <MemoHeader color={hd} onMouseDown={handleMouseDown} />}
       {clicked && (
         <>
-          <MemoCompleteBtn
-            onClick={() => dispatch(editMemo({ id, uid, status: "complete" }))}
-          >
-            <CompleteSvg />
-          </MemoCompleteBtn>
+          {status !== "complete" && (
+            <>
+              <MemoCompleteBtn
+                onClick={() => {
+                  dispatch(editMemo({ id, uid, status: "complete" }));
+                  dispatch(doneMemo({ title, displayName, photoURL, uid, bg }));
+                }}
+              >
+                <CompleteSvg />
+              </MemoCompleteBtn>
 
-          <ColorChangeBtn onClick={() => setColorPalette((prev) => !prev)}>
-            <ColorChangeSvg />
-            {colorPalette && (
-              <ColorPaletteWrapper ref={colorPaletteRef}>
-                <ColorPalette>
-                  {memoColorPalette.map(({ bg, hd }) => (
-                    <Color
-                      key={bg}
-                      bg={bg}
-                      onClick={() => dispatch(editMemo({ id, uid, bg, hd }))}
-                    />
-                  ))}
-                </ColorPalette>
-              </ColorPaletteWrapper>
-            )}
-          </ColorChangeBtn>
+              <ColorChangeBtn onClick={() => setColorPalette((prev) => !prev)}>
+                <ColorChangeSvg />
+                {colorPalette && (
+                  <ColorPaletteWrapper ref={colorPaletteRef}>
+                    <ColorPalette>
+                      {memoColorPalette.map(({ bg, hd }) => (
+                        <Color
+                          key={bg}
+                          bg={bg}
+                          onClick={() =>
+                            dispatch(editMemo({ id, uid, bg, hd }))
+                          }
+                        />
+                      ))}
+                    </ColorPalette>
+                  </ColorPaletteWrapper>
+                )}
+              </ColorChangeBtn>
+            </>
+          )}
 
           <MemoDeleteBtn onClick={() => dispatch(removeMemo(id, uid))}>
             <MemoDeleteSvg />

@@ -7,13 +7,13 @@ import {
   Title,
 } from "./styles/Dashboard.style";
 
-const Dashboard = () => {
+const Dashboard = ({ createdAt, displayName, photoURL, title, bg }) => {
   return (
-    <DashboardWrapper>
-      <Photo />
+    <DashboardWrapper bg={bg}>
+      <Photo src={photoURL} />
       <InnerSpan>
-        <Name>박종호</Name>님이
-        <Title> 오늘 해야할 것</Title> 을 완료했습니다.
+        <Name>{displayName}</Name>님이
+        <Title> {title}</Title> 를(을) 완료했습니다.
       </InnerSpan>
     </DashboardWrapper>
   );

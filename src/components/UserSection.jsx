@@ -16,7 +16,7 @@ const UserSection = () => {
   const LoginScreenRef = useRef();
   const { clicked, setClicked } = useClicked(LoginScreenRef);
 
-  const { uid, displayName, photoURL, isLoggedIn } = useSelector(
+  const { displayName, photoURL, isLoggedIn } = useSelector(
     (state) => state.login
   );
   const dispatch = useDispatch();

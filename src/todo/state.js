@@ -7,6 +7,7 @@ const SET = "memo/SET";
 const ADD = "memo/ADD";
 const REMOVE = "memo/REMOVE";
 const EDIT = "memo/EDIT";
+const DONE = "memo/DONE";
 
 const getRandomNumber = (num) => {
   return Math.floor(Math.random() * Math.floor(num));
@@ -41,31 +42,30 @@ const INITIAL_STATE = {
     },
     {
       id: 1,
-      width: 400,
-      height: 250,
-      posX: 150,
-      posY: 150,
-      title: "메모를 클릭해 보세요 !!",
-      desc:
-        "1. 상단바를 이용해 메모의 위치를 변경할 수 있습니다. \n2. 팔레트 버튼을 클릭하면 메모 색상을 변경할 수 있습니다.\n3. 휴지통 버튼을 클릭하면 메모를 삭제할 수 있습니다.\n4. 메모의 가장자리에 커서를 가져다 대면 메모의 크기를 변경할 수 있습니다.(최소: 300px X 200px)",
-      status: "pending",
-      bg: memoColorPalette[3].bg,
-      hd: memoColorPalette[3].hd,
-    },
-    {
-      id: 2,
       width: initialMemoWidth,
       height: initialMemoHeight,
-      posX: 300,
-      posY: 320,
+      posX: 150,
+      posY: 150,
       title: "로그인 해보세요 !!",
       desc: "로그인 하시면 작성해 둔 메모가 저장됩니다.",
       status: "pending",
       bg: memoColorPalette[6].bg,
       hd: memoColorPalette[6].hd,
     },
+    {
+      id: 2,
+      width: 400,
+      height: 250,
+      posX: 270,
+      posY: 270,
+      title: "메모를 클릭해 보세요 !!",
+      desc:
+        "1. 상단바를 이용해 메모의 위치를 변경할 수 있습니다. \n2. 팔레트 버튼을 클릭하면 메모 색상을 변경할 수 있습니다.\n3. 휴지통 버튼을 클릭하면 메모를 삭제할 수 있습니다.\n4. 작업을 완료하셨으면 체크 버튼을 누르세요. \n5. 메모의 가장자리에 커서를 가져다 대면 메모의 크기를 변경할 수 있습니다.(최소: 300px X 200px)",
+      status: "pending",
+      bg: memoColorPalette[3].bg,
+      hd: memoColorPalette[3].hd,
+    },
   ],
-  fulfillMemos: [],
   currentIndex: 0,
   loaded: false,
 };
@@ -81,6 +81,10 @@ export const removeMemo = (id, uid) => ({ type: REMOVE, id, uid });
 export const editMemo = ({ id, ...rest }) => ({
   type: EDIT,
   id,
+  ...rest,
+});
+export const doneMemo = ({ ...rest }) => ({
+  type: DONE,
   ...rest,
 });
 
@@ -125,6 +129,17 @@ const setStateDataToFb = async (uid, id, type, data) => {
         break;
       case "edit":
         await firestore.collection(`memos-${uid}`).doc(id).update(data);
+        break;
+      case "done":
+        const { title } = data;
+        if (title !== "") {
+          await firestore.collection("doneRecord").add({
+            ...data,
+            createdAt: Date.now(),
+            creatorId: uid,
+          });
+        }
+
         break;
       default:
         throw Error;
@@ -174,6 +189,12 @@ const reducer = createReducer(INITIAL_STATE, {
 
     if (uid !== undefined) {
       setStateDataToFb(uid, id, "edit", rest);
+    }
+  },
+  [DONE]: (state, action) => {
+    const { type, uid, ...rest } = action;
+    if (uid !== undefined) {
+      setStateDataToFb(uid, null, "done", rest);
     }
   },
 });

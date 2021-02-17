@@ -3,18 +3,17 @@ import styled from "styled-components";
 export const DashboardWrapper = styled.div`
   width: 90%;
   height: 100px;
-  background-color: #dadada;
+  background-color: ${({ bg }) => bg};
   margin: 20px 0px;
   display: flex;
   align-items: center;
   padding: 20px;
 `;
 
-export const Photo = styled.div`
-  height: 80px;
-  width: 80px;
+export const Photo = styled.img`
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
-  background-color: black;
   margin: 0px 30px;
 `;
 
