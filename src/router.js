@@ -6,7 +6,8 @@ import {
 } from "react-router-dom";
 import Header from "./header/Header";
 import LeftBar from "./leftbar/LeftBar";
-import Today from "./todo/TodoContainer";
+import Todo from "./todo/TodoContainer";
+import Dashboard from "./dashboard/DashboardContainer";
 
 const HomeRouter = ({ match }) => {
   return (
@@ -14,8 +15,9 @@ const HomeRouter = ({ match }) => {
       <Header />
       <div style={{ display: "flex" }}>
         <LeftBar />
-        <Route path={`${match.path}/todo`} component={Today} />
-        <Route path={`${match.path}/done`} component={Today} />
+        <Route path={`${match.path}/todo`} component={Todo} />
+        <Route path={`${match.path}/done`} component={Todo} />
+        <Route path={`${match.path}/dashboard`} component={Dashboard} />
         <Redirect path="*" to="todo" />
       </div>
     </>

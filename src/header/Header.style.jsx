@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.header`
 `;
 
 export const Logo = styled.div`
-  line-height: ${headerHeight};
+  line-height: 80px;
   color: #ecf0f1;
   width: 20%;
   padding-left: 40px;

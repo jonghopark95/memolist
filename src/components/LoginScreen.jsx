@@ -20,15 +20,13 @@ const handleSNSLogin = async (e) => {
     provider = new firebaseInstance.auth.FacebookAuthProvider();
   }
 
-  const data = await authService.signInWithPopup(provider);
-  console.log(data);
+  await authService.signInWithPopup(provider);
 };
 
 const LoginScreen = React.forwardRef((props, ref) => {
   return (
     <LoginScreenWrapper ref={ref}>
       <LabelBox size="lg" bold>
-        {/* {init && isLoggedIn ? "logout" : "login"} */}
         login
       </LabelBox>
 

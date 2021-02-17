@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { LBAmount, LBIcon, LBItem, LBLabel, LBWrapper } from "./LeftBar.style";
 import Todo from "../assets/todo.svg";
 import Done from "../assets/done.svg";
+import Dashboard from "../assets/dashboard.svg";
 
 const LeftBarItem = withRouter(
   ({ to, icon, label, amount, location: { pathname } }) => {
@@ -45,6 +46,7 @@ const LeftBar = () => {
         label="Done"
         amount={amount("complete")}
       />
+      <LeftBarItem to="/home/dashboard" icon={Dashboard} label="Dashboard" />
     </LBWrapper>
   );
 };

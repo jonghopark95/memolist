@@ -32,15 +32,6 @@ export const LoginScreenWrapper = styled.div`
   background-color: #2c3e50;
 `;
 
-export const UserInteractionSection = styled.div`
-  width: 20%;
-  padding-right: 80px;
-  line-height: ${headerHeight};
-  text-align: right;
-  position: absolute;
-  right: 0;
-`;
-
 export const LabelBox = styled.div`
   height: ${labelBoxHeight};
   line-height: ${labelBoxHeight};
@@ -71,12 +62,33 @@ export const SNSLoginBtn = styled.button`
   cursor: pointer;
 `;
 
+export const UserInteractionSection = styled.div`
+  position: absolute;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 80px;
+  line-height: ${headerHeight};
+`;
+
 export const UserInteractionSpan = styled.span`
-  width: 40px;
+  width: auto;
   height: 100%;
   font-size: 20px;
   color: #fff;
-  text-align: center;
-  text-decoration: none;
   cursor: pointer;
+`;
+
+export const WelcomeMent = styled(UserInteractionSpan)`
+  cursor: default;
+`;
+
+export const Picture = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0px 15px;
 `;

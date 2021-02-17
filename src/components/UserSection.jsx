@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import {
+  Picture,
   UserInteractionSection,
   UserInteractionSpan,
+  WelcomeMent,
 } from "./styles/UserSection.style";
 import useClicked from "../common/hooks/useClicked";
 import LoginPage from "./LoginScreen";
@@ -14,15 +16,20 @@ const UserSection = () => {
   const LoginScreenRef = useRef();
   const { clicked, setClicked } = useClicked(LoginScreenRef);
 
-  const { isLoggedIn } = useSelector((state) => state.login);
+  const { uid, displayName, photoURL, isLoggedIn } = useSelector(
+    (state) => state.login
+  );
   const dispatch = useDispatch();
   let history = useHistory();
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
+      const { uid, displayName, photoURL } = user;
       if (user) {
-        dispatch(changeLogAction(user.uid, true));
-      } else dispatch(changeLogAction(null, false));
+        dispatch(
+          changeLogAction({ uid, displayName, photoURL, isLoggedIn: true })
+        );
+      } else dispatch(changeLogAction(null, null, null, false));
     });
   }, [dispatch]);
 
@@ -35,8 +42,11 @@ const UserSection = () => {
     }
   };
 
+  console.log(uid, displayName, photoURL, isLoggedIn);
   return (
     <UserInteractionSection>
+      <WelcomeMent>환영합니다 {displayName}님! </WelcomeMent>
+      <Picture src={photoURL} />
       <UserInteractionSpan onClick={handleOnClick}>
         {isLoggedIn === "pending" && ""}
         {!isLoggedIn && "로그인"}
