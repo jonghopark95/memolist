@@ -5,7 +5,8 @@ import LoadingMotion from "../components/loadingMotion";
 import DefaultLayout from "../components/defaultLayout";
 import { addMemo, setFbDataToState } from "./state";
 import Memo from "../components/memo";
-import { AddMemoBtn } from "./TodayContainer.style";
+import { AddMemoBtn } from "./TodoContainer.style";
+import { withRouter } from "react-router-dom";
 
 const AddMemo = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,10 @@ const AddMemo = () => {
   );
 };
 
-const Today = () => {
+const Todo = (props) => {
+  const {
+    location: { pathname },
+  } = props;
   const dispatch = useDispatch();
   const { uid, isLoggedIn } = useSelector((state) => state.login);
   const { memos, loaded } = useSelector((state) => state.data);
@@ -29,20 +33,27 @@ const Today = () => {
     }
   }, [dispatch, isLoggedIn, uid]);
 
-  console.log(memos);
+  const path = pathname.split("/")[2];
 
-  const pendingMemos = memos.filter((memo) => memo.status === "pending");
+  const memoSet = (path) => {
+    if (path === "todo") {
+      return memos.filter((memo) => memo.status === "pending");
+    } else {
+      return memos.filter((memo) => memo.status === "complete");
+    }
+  };
+
   return (
     <DefaultLayout>
-      <AddMemo />
+      {path === "todo" && <AddMemo />}
       {isLoggedIn === "pending" && <LoadingMotion />}
       {isLoggedIn === false &&
-        pendingMemos.map(({ id }) => <Memo key={id} id={id} />)}
+        memoSet(path).map(({ id }) => <Memo key={id} id={id} />)}
       {isLoggedIn === true &&
         loaded &&
-        pendingMemos.map(({ id }) => <Memo key={id} id={id} />)}
+        memoSet(path).map(({ id }) => <Memo key={id} id={id} />)}
     </DefaultLayout>
   );
 };
 
-export default Today;
+export default withRouter(Todo);

@@ -17,7 +17,7 @@ import { ReactComponent as ColorChangeSvg } from "../assets/palette.svg";
 import useClicked from "../common/hooks/useClicked";
 import useMemoMove from "../common/hooks/useMemoMove";
 import { useDispatch, useSelector } from "react-redux";
-import { editMemo, removeMemo } from "../today/state";
+import { editMemo, removeMemo } from "../todo/state";
 import { memoColorPalette } from "./styles/commonStyle";
 
 const Memo = ({ id }) => {

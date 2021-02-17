@@ -1,6 +1,7 @@
 import React from "react";
 import { LBAmount, LBIcon, LBItem, LBLabel, LBWrapper } from "./LeftBar.style";
-import Today from "../assets/leftbar/today.svg";
+import Todo from "../assets/todo.svg";
+import Done from "../assets/done.svg";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -18,15 +19,31 @@ const LeftBarItem = withRouter(
 
 const LeftBar = () => {
   const { memos, loaded } = useSelector((state) => state.data);
-  const todayAmount = memos.filter((memo) => memo.status === "pending").length;
+  const { isLoggedIn } = useSelector((state) => state.login);
+
+  const amount = (status) => {
+    if (isLoggedIn === false) {
+      return memos.filter((memo) => memo.status === status).length;
+    } else if (isLoggedIn === true) {
+      if (loaded) return memos.filter((memo) => memo.status === status).length;
+    } else {
+      return "";
+    }
+  };
 
   return (
     <LBWrapper>
       <LeftBarItem
-        to="/home/today"
-        icon={Today}
-        label="Today"
-        amount={loaded ? todayAmount : ""}
+        to="/home/todo"
+        icon={Todo}
+        label="Todo"
+        amount={amount("pending")}
+      />
+      <LeftBarItem
+        to="/home/done"
+        icon={Done}
+        label="Done"
+        amount={amount("complete")}
       />
     </LBWrapper>
   );
