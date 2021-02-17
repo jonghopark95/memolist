@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import DefaultLayout from "../components/DefaultLayout";
 import firestore from "../firebase";
+
+const AlertMsg = styled.span`
+  position: absolute;
+  right: 80px;
+  top: 25px;
+  width: auto;
+  height: 20px;
+  font-size: 18px;
+`;
 
 const DashboardContainer = () => {
   const [dashboard, setDashboard] = useState([]);
@@ -12,13 +22,27 @@ const DashboardContainer = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setDashboard(doneArr);
+      const updateArr = doneArr
+        .sort((a, b) => {
+          if (a.createdAt > b.createdAt) {
+            return -1;
+          }
+          if (a.createdAt < b.createdAt) {
+            return 1;
+          }
+          return 0;
+        })
+        .slice(0, 6);
+      setDashboard(updateArr);
     });
+    return () => firestore.collection("doneRecord").onSnapshot();
   }, []);
 
-  console.log(dashboard, dashboard.length);
   return (
     <DefaultLayout>
+      <AlertMsg>
+        Dashboard는 모든 유저가 완료한 메모 중 가장 빠른 6개만 보여줍니다.{" "}
+      </AlertMsg>
       {dashboard.length !== 0 &&
         dashboard.map(({ id, createdAt, displayName, photoURL, title, bg }) => (
           <Dashboard
