@@ -9,7 +9,7 @@
 - firebase
 - styled-components
 
-## deployed on https://602d14c3cbd4580117439e23--adoring-knuth-dfe3a8.netlify.app/home/todo
+## deployed on https://adoring-knuth-dfe3a8.netlify.app
 
 ## TODO
 
