@@ -19,13 +19,20 @@ const useMemoMove = ({ x, y }) => {
     };
 
     const handleMouseMove = (e) => {
+      const { width, height } = document
+        .getElementsByTagName("main")[0]
+        .getBoundingClientRect();
+      const limitWidth = width - 420;
+      const limitHeight = height - 240;
       const { clientX, clientY } = e;
       const { x: oldClientX, y: oldClientY } = rel;
       const { x: oldX, y: oldY } = pos;
       let newX = oldX - (oldClientX - clientX);
       let newY = oldY - (oldClientY - clientY);
-      if (newX < 50) newX = 50;
-      if (newY < 50) newY = 50;
+      if (newX <= 50) newX = 50;
+      if (newY <= 50) newY = 50;
+      if (newX >= limitWidth) newX = limitWidth;
+      if (newY >= limitHeight) newY = limitHeight;
 
       setPos({ x: newX, y: newY });
     };

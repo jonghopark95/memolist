@@ -5,6 +5,7 @@ import Memo from "../component/Memo";
 import { AddMemoBtn } from "./TodayContainer.style";
 import { useDispatch, useSelector } from "react-redux";
 import { addMemo, setFbDataToState } from "../state";
+import LoadingMotion from "../../components/LoadingMotion";
 
 const AddMemo = () => {
   const dispatch = useDispatch();
@@ -28,13 +29,14 @@ const Today = () => {
     }
   }, [dispatch, isLoggedIn, uid]);
 
-  console.log(memos, uid);
   return (
     <DefaultLayout>
       <AddMemo />
-      {isLoggedIn === "pending" && "로딩 애니메이션"}
-      {!isLoggedIn && memos.map(({ id }) => <Memo key={id} id={id} />)}
-      {isLoggedIn && loaded && memos.map(({ id }) => <Memo key={id} id={id} />)}
+      {isLoggedIn === "pending" && <LoadingMotion />}
+      {isLoggedIn === false && memos.map(({ id }) => <Memo key={id} id={id} />)}
+      {isLoggedIn === true &&
+        loaded &&
+        memos.map(({ id }) => <Memo key={id} id={id} />)}
     </DefaultLayout>
   );
 };

@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import Header from "./header/Header";
 import LeftBar from "./leftbar/LeftBar";
-import LoginPage from "./login_page/container/loginContainer";
 import Today from "./today/container/TodayContainer";
 
 const HomeRouter = ({ match }) => {
@@ -27,7 +26,6 @@ const AppRouter = () => {
     <Router>
       <Switch>
         <Route path="/home" component={HomeRouter} />
-        <Route path="/login" component={LoginPage} />
         <Redirect path="*" to="/home" />
       </Switch>
     </Router>

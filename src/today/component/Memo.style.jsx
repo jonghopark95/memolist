@@ -10,7 +10,7 @@ export const MemoWrapper = styled.div`
   top: ${({ top }) => top};
   left: ${({ left }) => left};
   padding: 15px;
-  background-color: ${({ color }) => color.bg};
+  background-color: ${({ color }) => color};
   border: 1px solid #605e5e;
   -webkit-box-shadow: 0px 0px 48px -26px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 0px 48px -26px rgba(0, 0, 0, 0.4);
@@ -25,7 +25,7 @@ export const MemoHeader = styled.div`
   left: 0;
   width: 100%;
   height: 8px;
-  background-color: ${({ color }) => color.hd};
+  background-color: ${({ color }) => color};
   cursor: move;
 `;
 
@@ -45,8 +45,6 @@ export const MemoDescription = styled.textarea`
   background-color: transparent;
 `;
 
-// export const MemoEditableDesc = styled(MemoDescription)``;
-
 export const MemoDeleteBtn = styled.button`
   position: absolute;
   right: 5px;
@@ -60,5 +58,37 @@ export const MemoDeleteBtn = styled.button`
   svg {
     width: 100%;
     height: 100%;
+  }
+`;
+
+export const ColorChangeBtn = styled(MemoDeleteBtn)`
+  right: 45px;
+`;
+
+export const ColorPaletteWrapper = styled.div`
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  width: 130px;
+  height: 130px;
+  padding: 10px;
+  z-index: 9999;
+  border-radius: 10px;
+  background-color: white;
+`;
+
+export const ColorPalette = styled.div`
+  height: 100%;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 25% 25% 25% 25%;
+`;
+
+export const Color = styled.div`
+  background-color: ${({ bg }) => bg};
+  cursor: pointer;
+  :hover {
+    transform: scale(1.5);
+    transition: 0.4s;
   }
 `;
