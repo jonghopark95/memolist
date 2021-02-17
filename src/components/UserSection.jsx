@@ -24,12 +24,20 @@ const UserSection = () => {
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      const { uid, displayName, photoURL } = user;
       if (user) {
+        const { uid, displayName, photoURL } = user;
         dispatch(
           changeLogAction({ uid, displayName, photoURL, isLoggedIn: true })
         );
-      } else dispatch(changeLogAction(null, null, null, false));
+      } else
+        dispatch(
+          changeLogAction({
+            uid: null,
+            displayName: null,
+            photoURL: null,
+            isLoggedIn: false,
+          })
+        );
     });
   }, [dispatch]);
 
@@ -42,11 +50,14 @@ const UserSection = () => {
     }
   };
 
-  console.log(uid, displayName, photoURL, isLoggedIn);
   return (
     <UserInteractionSection>
-      <WelcomeMent>환영합니다 {displayName}님! </WelcomeMent>
-      <Picture src={photoURL} />
+      {isLoggedIn === true && (
+        <>
+          <WelcomeMent>환영합니다 {displayName}님! </WelcomeMent>
+          <Picture src={photoURL} />
+        </>
+      )}
       <UserInteractionSpan onClick={handleOnClick}>
         {isLoggedIn === "pending" && ""}
         {!isLoggedIn && "로그인"}
