@@ -4,7 +4,7 @@ import {
   LoginScreenWrapper,
   SNSLoginBtn,
   SNSLoginWrapper,
-} from "./styles/userSection.style";
+} from "./styles/UserSection.style";
 import { ReactComponent as GoogleLogo } from "../assets/login_page/google.svg";
 import { ReactComponent as FacebookLogo } from "../assets/login_page/facebook.svg";
 import { firebaseInstance, authService } from "../firebase";

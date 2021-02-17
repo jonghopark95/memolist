@@ -1,9 +1,9 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { LBAmount, LBIcon, LBItem, LBLabel, LBWrapper } from "./LeftBar.style";
 import Todo from "../assets/todo.svg";
 import Done from "../assets/done.svg";
-import { withRouter } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const LeftBarItem = withRouter(
   ({ to, icon, label, amount, location: { pathname } }) => {

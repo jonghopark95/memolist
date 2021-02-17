@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { addMemo, setFbDataToState } from "./state";
+import { AddMemoBtn } from "./TodoContainer.style";
 import { ReactComponent as AddMemoSvg } from "../assets/add_memo.svg";
 import LoadingMotion from "../components/LoadingMotion";
 import DefaultLayout from "../components/DefaultLayout";
-import { addMemo, setFbDataToState } from "./state";
-import Memo from "../components/memo";
-import { AddMemoBtn } from "./TodoContainer.style";
-import { withRouter } from "react-router-dom";
+import Memo from "../components/Memo";
 
 const AddMemo = () => {
   const dispatch = useDispatch();

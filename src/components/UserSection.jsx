@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import {
   UserInteractionSection,
   UserInteractionSpan,
-} from "./styles/userSection.style";
+} from "./styles/UserSection.style";
 import useClicked from "../common/hooks/useClicked";
 import LoginPage from "./LoginScreen";
 import { authService } from "../firebase";

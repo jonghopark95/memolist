@@ -10,7 +10,7 @@ import {
   MemoHeader,
   MemoTitle,
   MemoWrapper,
-} from "./styles/memo.style";
+} from "./styles/Memo.style";
 import { ReactComponent as MemoDeleteSvg } from "../assets/delete_memo.svg";
 import { ReactComponent as CompleteSvg } from "../assets/checked.svg";
 import { ReactComponent as ColorChangeSvg } from "../assets/palette.svg";

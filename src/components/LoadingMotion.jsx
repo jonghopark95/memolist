@@ -1,5 +1,5 @@
 import React from "react";
-import { LoadingWrapper, DotBox, Dot } from "./styles/loadingMotion.style";
+import { LoadingWrapper, DotBox, Dot } from "./styles/LoadingMotion.style";
 
 const LoadingMotion = () => {
   return (
