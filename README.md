@@ -1,5 +1,16 @@
 # memolist
 
+## stack
+
+- react
+- redux
+- redux-thunk
+- immer
+- firebase
+- styled-components
+
+## deployed on https://602d14c3cbd4580117439e23--adoring-knuth-dfe3a8.netlify.app/home/todo
+
 ## TODO
 
 - [x] 메모 생성 후 이동 하려 할 시 해당 id를 못받아서 에러가 뜸
@@ -12,7 +23,7 @@
 - [x] 팔레트 만들어서 해당 버튼 누를 시 메모 색깔 바뀌게 하기
 - [x] 메모 상태 finished, pending, ... 등등 만들기
   - [x] finished 란
-- [ ] netlify에 배포해놓고 개발하기
+- [x] netlify에 배포해놓고 개발하기
 - [ ] finished 했을 때 모든 사용자에게 알림 가는 창 만들기
 - [ ] 로그인 창 너무 못생김... 개선 필요
   - [ ] 가끔 로그인 버튼 눌렀을 때 바로 로그인 안되는 경우 있음
