@@ -16,10 +16,11 @@ const initialMemoWidth = 300;
 const initialMemoHeight = 200;
 
 const DEFAULT_MEMO = {
-  posX: 50,
-  posY: 50,
+  posX: 250,
+  posY: 250,
   title: "",
   desc: "",
+  status: "pending",
   width: initialMemoWidth,
   height: initialMemoHeight,
 };
@@ -32,9 +33,9 @@ const INITIAL_STATE = {
       height: initialMemoHeight,
       posX: 50,
       posY: 50,
-      title: "환영합니다!!",
-      desc:
-        "로그인 하시면 작성한 메모들을 저장할 수 있습니다!\n\n오른쪽 + 버튼을 이용해 메모를 추가할 수 있습니다.",
+      title: "메모를 추가해보세요!!",
+      status: "pending",
+      desc: "오른쪽 + 버튼을 이용해 메모를 추가할 수 있습니다.",
       bg: memoColorPalette[1].bg,
       hd: memoColorPalette[1].hd,
     },
@@ -42,15 +43,29 @@ const INITIAL_STATE = {
       id: 1,
       width: 400,
       height: 250,
-      posX: 200,
-      posY: 200,
-      title: "메모를 클릭해 보세요",
+      posX: 150,
+      posY: 150,
+      title: "메모를 클릭해 보세요 !!",
       desc:
-        "1. 상단바를 이용해 메모의 위치를 변경할 수 있습니다. \n2. 휴지통 버튼을 클릭하면 메모를 삭제할 수 있습니다.\n3. 팔레트 버튼을 클릭하면 메모 색상을 변경할 수 있습니다.\n\n메모의 가장자리에 커서를 가져다 대면 메모의 크기를 변경할 수 있습니다.",
+        "1. 상단바를 이용해 메모의 위치를 변경할 수 있습니다. \n2. 팔레트 버튼을 클릭하면 메모 색상을 변경할 수 있습니다.\n3. 휴지통 버튼을 클릭하면 메모를 삭제할 수 있습니다.\n4. 메모의 가장자리에 커서를 가져다 대면 메모의 크기를 변경할 수 있습니다.(최소: 300px X 200px)",
+      status: "pending",
       bg: memoColorPalette[3].bg,
       hd: memoColorPalette[3].hd,
     },
+    {
+      id: 2,
+      width: initialMemoWidth,
+      height: initialMemoHeight,
+      posX: 300,
+      posY: 320,
+      title: "로그인 해보세요 !!",
+      desc: "로그인 하시면 작성해 둔 메모가 저장됩니다.",
+      status: "pending",
+      bg: memoColorPalette[6].bg,
+      hd: memoColorPalette[6].hd,
+    },
   ],
+  fulfillMemos: [],
   currentIndex: 0,
   loaded: false,
 };
@@ -120,20 +135,21 @@ const setStateDataToFb = async (uid, id, type, data) => {
 const reducer = createReducer(INITIAL_STATE, {
   [SET]: (state, action) => {
     state.memos = action.data;
-    state.currentIndex = action.data.length - 1;
     state.loaded = true;
   },
   [ADD]: (state, action) => {
     const { uid } = action;
     let new_memo = { ...DEFAULT_MEMO };
-    new_memo.color = memoColorPalette[getRandomNumber(memoColorPalette.length)];
+    let rand_num = getRandomNumber(memoColorPalette.length);
+    new_memo.bg = memoColorPalette[rand_num].bg;
+    new_memo.hd = memoColorPalette[rand_num].hd;
 
     if (uid !== undefined) {
       let doc = firestore.collection(`memos-${uid}`).doc();
       new_memo.id = doc.id;
       doc.set(new_memo);
     } else {
-      state.currentIndex += 1;
+      state.currentIndex = state.memos.length;
       new_memo.id = state.currentIndex;
     }
 

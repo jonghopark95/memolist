@@ -29,14 +29,18 @@ const Today = () => {
     }
   }, [dispatch, isLoggedIn, uid]);
 
+  console.log(memos);
+
+  const pendingMemos = memos.filter((memo) => memo.status === "pending");
   return (
     <DefaultLayout>
       <AddMemo />
       {isLoggedIn === "pending" && <LoadingMotion />}
-      {isLoggedIn === false && memos.map(({ id }) => <Memo key={id} id={id} />)}
+      {isLoggedIn === false &&
+        pendingMemos.map(({ id }) => <Memo key={id} id={id} />)}
       {isLoggedIn === true &&
         loaded &&
-        memos.map(({ id }) => <Memo key={id} id={id} />)}
+        pendingMemos.map(({ id }) => <Memo key={id} id={id} />)}
     </DefaultLayout>
   );
 };

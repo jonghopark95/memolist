@@ -4,6 +4,7 @@ import {
   ColorChangeBtn,
   ColorPalette,
   ColorPaletteWrapper,
+  MemoCompleteBtn,
   MemoDeleteBtn,
   MemoDescription,
   MemoHeader,
@@ -11,6 +12,7 @@ import {
   MemoWrapper,
 } from "./styles/memo.style";
 import { ReactComponent as MemoDeleteSvg } from "../assets/delete_memo.svg";
+import { ReactComponent as CompleteSvg } from "../assets/checked.svg";
 import { ReactComponent as ColorChangeSvg } from "../assets/palette.svg";
 import useClicked from "../common/hooks/useClicked";
 import useMemoMove from "../common/hooks/useMemoMove";
@@ -85,22 +87,29 @@ const Memo = ({ id }) => {
       {clicked && <MemoHeader color={hd} onMouseDown={handleMouseDown} />}
       {clicked && (
         <>
+          <MemoCompleteBtn
+            onClick={() => dispatch(editMemo({ id, uid, status: "complete" }))}
+          >
+            <CompleteSvg />
+          </MemoCompleteBtn>
+
           <ColorChangeBtn onClick={() => setColorPalette((prev) => !prev)}>
             <ColorChangeSvg />
+            {colorPalette && (
+              <ColorPaletteWrapper ref={colorPaletteRef}>
+                <ColorPalette>
+                  {memoColorPalette.map(({ bg, hd }) => (
+                    <Color
+                      key={bg}
+                      bg={bg}
+                      onClick={() => dispatch(editMemo({ id, uid, bg, hd }))}
+                    />
+                  ))}
+                </ColorPalette>
+              </ColorPaletteWrapper>
+            )}
           </ColorChangeBtn>
-          {colorPalette && (
-            <ColorPaletteWrapper ref={colorPaletteRef}>
-              <ColorPalette>
-                {memoColorPalette.map(({ bg, hd }) => (
-                  <Color
-                    key={bg}
-                    bg={bg}
-                    onClick={() => dispatch(editMemo({ id, uid, bg, hd }))}
-                  />
-                ))}
-              </ColorPalette>
-            </ColorPaletteWrapper>
-          )}
+
           <MemoDeleteBtn onClick={() => dispatch(removeMemo(id, uid))}>
             <MemoDeleteSvg />
           </MemoDeleteBtn>

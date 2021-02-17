@@ -7,6 +7,8 @@ export const MemoWrapper = styled.div`
   position: absolute;
   width: ${({ w }) => w}px;
   height: ${({ h }) => h}px;
+  min-width: 300px;
+  min-height: 200px;
   top: ${({ top }) => top};
   left: ${({ left }) => left};
   padding: 15px;
@@ -43,6 +45,7 @@ export const MemoDescription = styled.textarea`
   width: 100%;
   font-size: 15px;
   background-color: transparent;
+  overflow: hidden;
 `;
 
 export const MemoDeleteBtn = styled.button`
@@ -61,14 +64,18 @@ export const MemoDeleteBtn = styled.button`
   }
 `;
 
+export const MemoCompleteBtn = styled(MemoDeleteBtn)`
+  right: 90px;
+`;
+
 export const ColorChangeBtn = styled(MemoDeleteBtn)`
   right: 45px;
 `;
 
 export const ColorPaletteWrapper = styled.div`
   position: absolute;
-  top: 30px;
-  right: 40px;
+  bottom: 45px;
+  right: 0px;
   width: 130px;
   height: 130px;
   padding: 10px;
@@ -89,6 +96,6 @@ export const Color = styled.div`
   cursor: pointer;
   :hover {
     transform: scale(1.5);
-    transition: 0.4s;
+    transition: 0.2s;
   }
 `;

@@ -24,9 +24,6 @@ const useMovable = (ref) => {
       window.addEventListener("mouseup", handleMouseUp);
       ref.current.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
     }
-    // if (ref.current) {
-    //   ref.current.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-    // }
   }, [movable, handleMouseMove]);
 
   return { handleMouseDown, handleMouseUp };

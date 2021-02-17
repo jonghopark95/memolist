@@ -17,7 +17,8 @@ const LeftBarItem = withRouter(
 );
 
 const LeftBar = () => {
-  const todayAmount = useSelector((state) => state.data.memos.length);
+  const { memos, loaded } = useSelector((state) => state.data);
+  const todayAmount = memos.filter((memo) => memo.status === "pending").length;
 
   return (
     <LBWrapper>
@@ -25,7 +26,7 @@ const LeftBar = () => {
         to="/home/today"
         icon={Today}
         label="Today"
-        amount={todayAmount}
+        amount={loaded ? todayAmount : ""}
       />
     </LBWrapper>
   );
