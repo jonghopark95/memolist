@@ -4,7 +4,7 @@ import {
   UserInteractionSpan,
 } from "./styles/userSection.style";
 import useClicked from "../common/hooks/useClicked";
-import LoginPage from "./loginScreen";
+import LoginPage from "./LoginScreen";
 import { authService } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLogAction } from "../header/state";

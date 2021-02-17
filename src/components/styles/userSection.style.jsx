@@ -21,7 +21,7 @@ const putCenter = css`
   align-items: center;
 `;
 
-export const LoginScreen = styled.div`
+export const LoginScreenWrapper = styled.div`
   width: 300px;
   height: 200px;
   position: absolute;

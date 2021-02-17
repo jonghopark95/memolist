@@ -1,7 +1,7 @@
 import React from "react";
 import {
   LabelBox,
-  LoginScreen,
+  LoginScreenWrapper,
   SNSLoginBtn,
   SNSLoginWrapper,
 } from "./styles/userSection.style";
@@ -24,9 +24,9 @@ const handleSNSLogin = async (e) => {
   console.log(data);
 };
 
-const LoginPage = React.forwardRef((props, ref) => {
+const LoginScreen = React.forwardRef((props, ref) => {
   return (
-    <LoginScreen ref={ref}>
+    <LoginScreenWrapper ref={ref}>
       <LabelBox size="lg" bold>
         {/* {init && isLoggedIn ? "logout" : "login"} */}
         login
@@ -41,8 +41,8 @@ const LoginPage = React.forwardRef((props, ref) => {
           <FacebookLogo />
         </SNSLoginBtn>
       </SNSLoginWrapper>
-    </LoginScreen>
+    </LoginScreenWrapper>
   );
 });
 
-export default LoginPage;
+export default LoginScreen;

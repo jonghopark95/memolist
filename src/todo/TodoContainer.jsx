@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as AddMemoSvg } from "../assets/add_memo.svg";
-import LoadingMotion from "../components/loadingMotion";
-import DefaultLayout from "../components/defaultLayout";
+import LoadingMotion from "../components/LoadingMotion";
+import DefaultLayout from "../components/DefaultLayout";
 import { addMemo, setFbDataToState } from "./state";
 import Memo from "../components/memo";
 import { AddMemoBtn } from "./TodoContainer.style";

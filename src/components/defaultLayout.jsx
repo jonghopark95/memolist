@@ -11,11 +11,6 @@ const DefaultLayoutWrapper = styled.main`
   padding: 50px;
 `;
 
-const Title = styled.div`
-  height: 80px;
-  font-size: 40px;
-`;
-
 const Main = styled.div`
   /* height: calc(100% - 80px); */
   height: 100%;
