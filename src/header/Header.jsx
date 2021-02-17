@@ -1,5 +1,5 @@
 import React from "react";
-import UserSection from "./components/userSection";
+import UserSection from "../components/userSection";
 import { HeaderWrapper, Logo, SLink } from "./Header.style";
 
 const Header = () => {

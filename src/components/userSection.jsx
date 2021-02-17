@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 import {
   UserInteractionSection,
   UserInteractionSpan,
-} from "./userSection.style";
-import useClicked from "../../common/hooks/useClicked";
+} from "./styles/userSection.style";
+import useClicked from "../common/hooks/useClicked";
 import LoginPage from "./loginScreen";
-import { authService } from "../../firebase";
+import { authService } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { changeLogAction } from "../state";
+import { changeLogAction } from "../header/state";
 import { useHistory } from "react-router-dom";
 
 const UserSection = () => {

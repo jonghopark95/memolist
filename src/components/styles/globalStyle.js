@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-import NexonLv1GothicWoff from "./fonts/NEXON Lv1 Gothic OTF.woff";
-import NexonLv1GothicLightWoff from "./fonts/NEXON Lv1 Gothic OTF Light.woff";
+import NexonLv1GothicWoff from "../../common/fonts/NEXON Lv1 Gothic OTF.woff";
+import NexonLv1GothicLightWoff from "../../common/fonts/NEXON Lv1 Gothic OTF Light.woff";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`

@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Header from "./header/Header";
 import LeftBar from "./leftbar/LeftBar";
-import Today from "./today/container/TodayContainer";
+import Today from "./today/TodayContainer";
 
 const HomeRouter = ({ match }) => {
   return (

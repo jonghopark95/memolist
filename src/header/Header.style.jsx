@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const headerHeight = "70px";
+const headerHeight = "70px";
 
 export const HeaderWrapper = styled.header`
   width: 100%;

@@ -1,5 +1,6 @@
 import createReducer from "../common/redux/createReducer";
-import { memoColorPalette } from "../common/styles/commonStyle";
+import { memoColorPalette } from "../components/styles/commonStyle";
+
 import firestore from "../firebase";
 
 const SET = "memo/SET";

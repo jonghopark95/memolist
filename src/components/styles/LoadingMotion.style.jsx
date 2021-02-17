@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { leftBarColor } from "../../common/styles/commonStyle";
+import { leftBarColor } from "./commonStyle";
 
 const rotate = keyframes`
   0% {

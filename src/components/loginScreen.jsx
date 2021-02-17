@@ -4,10 +4,10 @@ import {
   LoginScreen,
   SNSLoginBtn,
   SNSLoginWrapper,
-} from "./userSection.style";
-import { ReactComponent as GoogleLogo } from "../../assets/login_page/google.svg";
-import { ReactComponent as FacebookLogo } from "../../assets/login_page/facebook.svg";
-import { firebaseInstance, authService } from "../../firebase";
+} from "./styles/userSection.style";
+import { ReactComponent as GoogleLogo } from "../assets/login_page/google.svg";
+import { ReactComponent as FacebookLogo } from "../assets/login_page/facebook.svg";
+import { firebaseInstance, authService } from "../firebase";
 
 const handleSNSLogin = async (e) => {
   const {

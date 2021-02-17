@@ -9,14 +9,14 @@ import {
   MemoHeader,
   MemoTitle,
   MemoWrapper,
-} from "./Memo.style";
-import { ReactComponent as MemoDeleteSvg } from "../../assets/delete_memo.svg";
-import { ReactComponent as ColorChangeSvg } from "../../assets/palette.svg";
-import useClicked from "../../common/hooks/useClicked";
-import useMemoMove from "../../common/hooks/useMemoMove";
+} from "./styles/memo.style";
+import { ReactComponent as MemoDeleteSvg } from "../assets/delete_memo.svg";
+import { ReactComponent as ColorChangeSvg } from "../assets/palette.svg";
+import useClicked from "../common/hooks/useClicked";
+import useMemoMove from "../common/hooks/useMemoMove";
 import { useDispatch, useSelector } from "react-redux";
-import { editMemo, editMemoColor, removeMemo } from "../state";
-import { memoColorPalette } from "../../common/styles/commonStyle";
+import { editMemo, removeMemo } from "../today/state";
+import { memoColorPalette } from "./styles/commonStyle";
 
 const Memo = ({ id }) => {
   const uid = useSelector((state) => state.login.uid) || undefined;

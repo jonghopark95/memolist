@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import DefaultLayout from "../../common/defaultLayout";
-import { ReactComponent as AddMemoSvg } from "../../assets/add_memo.svg";
-import Memo from "../component/Memo";
-import { AddMemoBtn } from "./TodayContainer.style";
 import { useDispatch, useSelector } from "react-redux";
-import { addMemo, setFbDataToState } from "../state";
-import LoadingMotion from "../../components/LoadingMotion";
+import { ReactComponent as AddMemoSvg } from "../assets/add_memo.svg";
+import LoadingMotion from "../components/loadingMotion";
+import DefaultLayout from "../components/defaultLayout";
+import { addMemo, setFbDataToState } from "./state";
+import Memo from "../components/memo";
+import { AddMemoBtn } from "./TodayContainer.style";
 
 const AddMemo = () => {
   const dispatch = useDispatch();

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { leftBarBgColor } from "../common/styles/commonStyle";
-import { headerHeight } from "../header/Header.style";
+import { leftBarBgColor } from "../components/styles/commonStyle";
+
+const headerHeight = "70px";
 
 export const LBWrapper = styled.div`
   height: calc(100vh - ${headerHeight});

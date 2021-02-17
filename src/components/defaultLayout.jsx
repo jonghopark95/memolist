@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { headerHeight } from "../header/Header.style";
+
+const headerHeight = "70px";
 
 const DefaultLayoutWrapper = styled.main`
   position: relative;

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { headerHeight } from "../Header.style";
 
+const headerHeight = "70px";
 const labelBoxHeight = "40px";
 const fontColor = "#fff";
 const handleFontSize = (size) => {
