@@ -16,8 +16,8 @@ const HomeRouter = ({ match }) => {
         <LeftBar />
         <Route path={`${match.path}/todo`} component={Today} />
         <Route path={`${match.path}/done`} component={Today} />
+        <Redirect path="*" to="todo" />
       </div>
-      {/* <Redirect path="*" to="/today" /> */}
     </>
   );
 };
@@ -27,7 +27,7 @@ const AppRouter = () => {
     <Router>
       <Switch>
         <Route path="/home" component={HomeRouter} />
-        <Redirect path="*" to="/home" />
+        <Redirect path="*" to="/home/todo" />
       </Switch>
     </Router>
   );
