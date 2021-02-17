@@ -23,12 +23,12 @@ const putCenter = css`
 
 export const LoginScreenWrapper = styled.div`
   width: 300px;
-  height: 200px;
+  height: auto;
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 9999;
-  padding: 30px;
+  padding: 15px;
   background-color: #2c3e50;
 `;
 
@@ -42,23 +42,26 @@ export const LabelBox = styled.div`
 `;
 
 export const SNSLoginWrapper = styled.div`
-  height: auto;
+  height: 40px;
   width: 100%;
+  background-color: white;
   ${putCenter};
+  cursor: pointer;
+  font-size: 15px;
 `;
 
 export const SNSLoginBtn = styled.button`
   all: unset;
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 40px;
   border-radius: 50%;
   background-color: #fff;
   ${putCenter};
   svg {
-    width: 50%;
-    height: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
   }
-  margin: 5px 20px;
   cursor: pointer;
 `;
 

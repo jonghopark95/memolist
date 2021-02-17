@@ -13,30 +13,24 @@ const handleSNSLogin = async (e) => {
   const {
     target: { name },
   } = e;
-  let provider;
+  // provider 외부에 선언하고 재정의하면 에러남
   if (name === "google") {
-    provider = new firebaseInstance.auth.GoogleAuthProvider();
+    console.log("gg");
+    const provider = new firebaseInstance.auth.GoogleAuthProvider();
+    await authService.signInWithPopup(provider);
   } else if (name === "facebook") {
-    provider = new firebaseInstance.auth.FacebookAuthProvider();
+    const provider = new firebaseInstance.auth.FacebookAuthProvider();
+    await authService.signInWithPopup(provider);
   }
-
-  await authService.signInWithPopup(provider);
 };
 
 const LoginScreen = React.forwardRef((props, ref) => {
   return (
     <LoginScreenWrapper ref={ref}>
-      <LabelBox size="lg" bold>
-        login
-      </LabelBox>
-
-      <LabelBox size="sm">You can store memo data after login!!</LabelBox>
       <SNSLoginWrapper>
         <SNSLoginBtn name="google" onClick={handleSNSLogin}>
           <GoogleLogo />
-        </SNSLoginBtn>
-        <SNSLoginBtn name="facebook" onClick={handleSNSLogin}>
-          <FacebookLogo />
+          구글로 로그인
         </SNSLoginBtn>
       </SNSLoginWrapper>
     </LoginScreenWrapper>
