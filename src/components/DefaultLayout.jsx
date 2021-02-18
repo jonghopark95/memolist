@@ -9,6 +9,7 @@ const DefaultLayoutWrapper = styled.main`
   height: calc(100vh - ${headerHeight});
   background-color: #fff;
   padding: 50px;
+  font-family: "NEXON Lv1 Gothic OTF Light", sans-serif;
 `;
 
 const Main = styled.div`

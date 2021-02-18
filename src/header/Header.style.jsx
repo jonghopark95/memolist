@@ -9,6 +9,7 @@ export const HeaderWrapper = styled.header`
   background-color: #34495e;
   display: flex;
   position: relative;
+  font-family: "NEXON Lv1 Gothic OTF Light", sans-serif;
 `;
 
 export const Logo = styled.div`

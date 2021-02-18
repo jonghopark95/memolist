@@ -9,6 +9,7 @@ export const LBWrapper = styled.div`
   width: 400px;
   padding: 40px;
   background-color: ${leftBarBgColor};
+  font-family: "NEXON Lv1 Gothic OTF Light", sans-serif;
 `;
 
 export const LBItem = styled(Link)`
