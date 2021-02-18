@@ -11,7 +11,7 @@ export const MemoWrapper = styled.div`
   min-height: 200px;
   top: ${({ top }) => top};
   left: ${({ left }) => left};
-  padding: 15px;
+  padding: 15px 15px 45px 15px;
   background-color: ${({ color }) => color};
   border: 1px solid #605e5e;
   -webkit-box-shadow: 0px 0px 48px -26px rgba(0, 0, 0, 0.4);
@@ -41,9 +41,10 @@ export const MemoTitle = styled.textarea`
 
 export const MemoDescription = styled.textarea`
   height: calc(100% - ${MemoTitleHeight} - ${MemoDeleteButtonH});
+  line-height: 25px;
   padding: 15px 0px;
   width: 100%;
-  font-size: 15px;
+  font-size: 17px;
   background-color: transparent;
   overflow: hidden;
 `;
