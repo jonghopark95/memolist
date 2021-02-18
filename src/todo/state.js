@@ -58,7 +58,7 @@ const INITIAL_STATE = {
     {
       id: 2,
       width: 550,
-      height: 350,
+      height: 320,
       posX: 270,
       posY: 300,
       color: "#000",
