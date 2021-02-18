@@ -43,6 +43,8 @@ const Todo = (props) => {
     }
   };
 
+  console.log(memos);
+
   return (
     <DefaultLayout>
       {path === "todo" && <AddMemo />}

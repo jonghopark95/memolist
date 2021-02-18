@@ -4,6 +4,7 @@ import {
   ColorChangeBtn,
   ColorPalette,
   ColorPaletteWrapper,
+  FontColorChangeBtn,
   MemoCompleteBtn,
   MemoDeleteBtn,
   MemoDescription,
@@ -14,6 +15,7 @@ import {
 import { ReactComponent as MemoDeleteSvg } from "../assets/delete_memo.svg";
 import { ReactComponent as CompleteSvg } from "../assets/checked.svg";
 import { ReactComponent as ColorChangeSvg } from "../assets/palette.svg";
+import { ReactComponent as FontColorChangeSvg } from "../assets/font.svg";
 import useClicked from "../common/hooks/useClicked";
 import useMemoMove from "../common/hooks/useMemoMove";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +38,7 @@ const Memo = ({ id }) => {
     posX,
     posY,
     status,
+    color,
   } = useSelector((state) => {
     const index = state.data.memos.findIndex((memo) => memo.id === id);
     return state.data.memos[index];
@@ -79,6 +82,7 @@ const Memo = ({ id }) => {
       left={`${pos.x}px`}
       top={`${pos.y}px`}
       color={bg}
+      fontColor={color}
       onMouseUp={handleSize}
     >
       <MemoTitle
@@ -106,6 +110,20 @@ const Memo = ({ id }) => {
               >
                 <CompleteSvg />
               </MemoCompleteBtn>
+
+              <FontColorChangeBtn
+                onClick={() => {
+                  let changeColor;
+                  if (color === "#fff") {
+                    changeColor = "#000";
+                  } else {
+                    changeColor = "#fff";
+                  }
+                  dispatch(editMemo({ id, uid, color: changeColor }));
+                }}
+              >
+                <FontColorChangeSvg />
+              </FontColorChangeBtn>
 
               <ColorChangeBtn onClick={() => setColorPalette((prev) => !prev)}>
                 <ColorChangeSvg />

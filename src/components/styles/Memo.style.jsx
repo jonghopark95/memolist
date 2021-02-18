@@ -13,6 +13,7 @@ export const MemoWrapper = styled.div`
   left: ${({ left }) => left};
   padding: 15px 15px 45px 15px;
   background-color: ${({ color }) => color};
+  color: ${({ fontColor }) => fontColor};
   border: 1px solid #605e5e;
   -webkit-box-shadow: 0px 0px 48px -26px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 0px 48px -26px rgba(0, 0, 0, 0.4);
@@ -66,6 +67,10 @@ export const MemoDeleteBtn = styled.button`
 `;
 
 export const MemoCompleteBtn = styled(MemoDeleteBtn)`
+  right: 135px;
+`;
+
+export const FontColorChangeBtn = styled(MemoDeleteBtn)`
   right: 90px;
 `;
 

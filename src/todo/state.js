@@ -24,6 +24,7 @@ const DEFAULT_MEMO = {
   status: "pending",
   width: initialMemoWidth,
   height: initialMemoHeight,
+  color: "#fff",
 };
 
 const INITIAL_STATE = {
@@ -34,6 +35,7 @@ const INITIAL_STATE = {
       height: initialMemoHeight,
       posX: 50,
       posY: 50,
+      color: "#000",
       title: "메모를 추가해보세요!!",
       status: "pending",
       desc: "오른쪽 + 버튼을 이용해 메모를 추가할 수 있습니다.",
@@ -46,6 +48,7 @@ const INITIAL_STATE = {
       height: initialMemoHeight,
       posX: 150,
       posY: 180,
+      color: "#000",
       title: "로그인 해보세요 !!",
       desc: "로그인 하시면 작성해 둔 메모가 저장됩니다.",
       status: "pending",
@@ -54,13 +57,14 @@ const INITIAL_STATE = {
     },
     {
       id: 2,
-      width: 500,
-      height: 300,
+      width: 550,
+      height: 350,
       posX: 270,
       posY: 300,
+      color: "#000",
       title: "메모를 클릭해 보세요 !!",
       desc:
-        "1. 상단바를 이용해 메모의 위치를 변경할 수 있습니다. \n2. 팔레트 버튼을 클릭하면 메모 색상을 변경할 수 있습니다.\n3. 휴지통 버튼을 클릭하면 메모를 삭제할 수 있습니다.\n4. 작업을 완료하셨으면 체크 버튼을 누르세요. \n5. 메모의 가장자리에 커서를 가져다 대면 메모의 크기를 변경할 수 있습니다.(최소: 300px X 200px)",
+        "1. 상단바를 이용해 메모의 위치를 변경할 수 있습니다. \n2. T버튼을 클릭하면 글자 색상을 변경할 수 있습니다.\n3. 팔레트 버튼을 클릭하면 메모 색상을 변경할 수 있습니다.\n4. 휴지통 버튼을 클릭하면 메모를 삭제할 수 있습니다.\n5. 작업을 완료하셨으면 체크 버튼을 누르세요. \n6. 메모의 가장자리에 커서를 가져다 대면 메모의 크기를 변경할 수 있습니다.(최소: 300px X 200px)",
       status: "pending",
       bg: memoColorPalette[14].bg,
       hd: memoColorPalette[14].hd,
