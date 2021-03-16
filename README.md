@@ -9,4 +9,4 @@
 - firebase
 - styled-components
 
-## deployed on https://adoring-knuth-dfe3a8.netlify.app
+## Deployed on https://adoring-knuth-dfe3a8.netlify.app
